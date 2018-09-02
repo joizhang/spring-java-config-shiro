@@ -124,7 +124,10 @@ public class ShiroConfig {
         map.put("/hello", "anon");
         map.put("/login", "anon");
         map.put("/assets/**", "anon");
-        map.put("/app/**", "anon");
+        map.put("/404", "anon");
+        map.put("/403", "anon");
+        map.put("/500", "anon");
+
         //需要登陆
         map.put("/**", "authc");
         //map.put("/**", "user");//通过记住我登陆

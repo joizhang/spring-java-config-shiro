@@ -12,21 +12,38 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <jetty-version>9.4.9.v20180320</jetty-version>
         <spring-version>4.3.14.RELEASE</spring-version>
         <hibernate-version>5.2.14.Final</hibernate-version>
         <hibernate-validator-version>5.4.1.Final</hibernate-validator-version>
-        <jetty-version>9.4.9.v20180320</jetty-version>
-        <shiro-version>1.4.0</shiro-version>
-        <slf4j-log4j-version>1.7.12</slf4j-log4j-version>
-        <jackson-version>2.9.5</jackson-version>
         <mysql-connector-version>5.1.46</mysql-connector-version>
         <druid-version>1.1.10</druid-version>
         <jedis-version>2.9.0</jedis-version>
+        <shiro-version>1.4.0</shiro-version>
+        <slf4j-log4j-version>1.7.12</slf4j-log4j-version>
+        <jackson-version>2.9.5</jackson-version>
+        <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
         <commons-lang3-version>3.7</commons-lang3-version>
         <lombok-version>1.18.2</lombok-version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -65,25 +82,14 @@
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <version>${jetty-version}</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-version}</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <version>${jetty-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring4</artifactId>
-            <version>2.1.4.RELEASE</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid-version}</version>
         </dependency>
 
         <dependency>
@@ -110,14 +116,9 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid-version}</version>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>${thymeleaf.version}</version>
         </dependency>
 
         <dependency>

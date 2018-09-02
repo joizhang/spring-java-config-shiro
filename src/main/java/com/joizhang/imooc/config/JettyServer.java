@@ -4,6 +4,7 @@ import com.joizhang.imooc.Application;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
@@ -24,7 +25,7 @@ import java.util.EnumSet;
  */
 public class JettyServer {
 
-    private static final int PORT = 8080;
+    private static final int PORT = 8089;
 
     private static final String CONTEXT_PATH = "/";
 
@@ -50,16 +51,15 @@ public class JettyServer {
         WebAppContext webAppContext = new WebAppContext("webapp", CONTEXT_PATH);
         webAppContext.setBaseResource(Resource.newResource(new URL(Application.class.getResource("/webapp/WEB-INF"), ".")));
         webAppContext.setClassLoader(Thread.currentThread().getContextClassLoader());
-
         webAppContext.addEventListener(new ContextLoaderListener(context));
-
         FilterHolder filterHolder = new FilterHolder(DelegatingFilterProxy.class);
         filterHolder.setName("shiroFilter");
         EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE);
         webAppContext.addFilter(filterHolder, MAPPING_URL, dispatcherTypes);
-
         webAppContext.addServlet(new ServletHolder(new DispatcherServlet(context)), SERVLET_MAPPING_URL);
-
+        ServletHolder holderHome = new ServletHolder(DefaultServlet.class);
+        holderHome.setInitParameter("useFileMappedBuffer", "false");
+        webAppContext.addServlet(holderHome, "/assets/*");
         return webAppContext;
     }
 

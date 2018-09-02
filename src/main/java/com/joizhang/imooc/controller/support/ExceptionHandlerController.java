@@ -1,7 +1,8 @@
-package com.joizhang.imooc.controller;
+package com.joizhang.imooc.controller.support;
 
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -16,6 +17,9 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author joizhang
+ */
 @ControllerAdvice
 public class ExceptionHandlerController {
 
@@ -25,7 +29,7 @@ public class ExceptionHandlerController {
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ModelAndView handlerUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
-        if ((request.getHeader("accept").contains("application/json"))) {
+        if ((request.getHeader("accept").contains(MediaType.APPLICATION_JSON.toString()))) {
             MappingJackson2JsonView view = new MappingJackson2JsonView();
             Map<String, Serializable> attributes = new HashMap<>();
             attributes.put("error", "403");

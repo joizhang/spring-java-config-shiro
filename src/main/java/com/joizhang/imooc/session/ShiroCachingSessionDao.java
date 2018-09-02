@@ -76,7 +76,7 @@ public class ShiroCachingSessionDao extends CachingSessionDAO {
             if (session != null) {
                 // 重置Redis中缓存过期时间
                 refreshSession(sessionId);
-                log.info("sessionId {} name {} 被读取", sessionId, session.getClass().getName());
+                log.debug("sessionId {} name {} 被读取", sessionId, session.getClass().getName());
             }
         } catch (Exception e) {
             log.warn("读取Session失败", e);
