@@ -2,8 +2,11 @@ package com.joizhang.imooc.config;
 
 import com.joizhang.imooc.Application;
 import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -41,10 +44,20 @@ public class JettyServer {
             connector.setPort(PORT);
             connector.setReuseAddress(false);
             server.setConnectors(new Connector[]{connector});
-            server.setHandler(webAppContext(springApplicationContext()));
+            HandlerList handlers = new HandlerList();
+            handlers.setHandlers(new Handler[] {resourceHandler(), webAppContext(springApplicationContext())});
+            server.setHandler(handlers);
             server.start();
             server.join();
         }
+    }
+
+    private ResourceHandler resourceHandler() {
+        ResourceHandler resourceHandler = new ResourceHandler();
+        resourceHandler.setDirectoriesListed(true);
+        // resourceHandler.setWelcomeFiles(new String[]{ "index.html" });
+        resourceHandler.setResourceBase(".");
+        return resourceHandler;
     }
 
     private WebAppContext webAppContext(WebApplicationContext context) throws MalformedURLException {
@@ -57,9 +70,6 @@ public class JettyServer {
         EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE);
         webAppContext.addFilter(filterHolder, MAPPING_URL, dispatcherTypes);
         webAppContext.addServlet(new ServletHolder(new DispatcherServlet(context)), SERVLET_MAPPING_URL);
-        ServletHolder holderHome = new ServletHolder(DefaultServlet.class);
-        holderHome.setInitParameter("useFileMappedBuffer", "false");
-        webAppContext.addServlet(holderHome, "/assets/*");
         return webAppContext;
     }
 

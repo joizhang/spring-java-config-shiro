@@ -6,6 +6,7 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -36,7 +37,7 @@ public class ShiroConfig {
     public DefaultWebSecurityManager webSecurityManager() {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealm(getRealm());
-        //defaultWebSecurityManager.setRememberMeManager(rememberMeManager());
+        defaultWebSecurityManager.setRememberMeManager(rememberMeManager());
         defaultWebSecurityManager.setSessionManager(sessionManager());
         return defaultWebSecurityManager;
     }
@@ -46,21 +47,22 @@ public class ShiroConfig {
         return new ShiroRealm();
     }
 
-//    @Bean
-//    public CookieRememberMeManager rememberMeManager() {
-//        CookieRememberMeManager rememberMeManager = new CookieRememberMeManager();
-//        rememberMeManager.setCookie(rememberMeCookie());
-//        rememberMeManager.setCipherKey(decode("5AvVhmFLUs0KTA3Kprsdag=="));
-//        return rememberMeManager;
-//    }
+    @Bean
+    public CookieRememberMeManager rememberMeManager() {
+        CookieRememberMeManager rememberMeManager = new CookieRememberMeManager();
+        rememberMeManager.setCookie(rememberMeCookie());
+        rememberMeManager.setCipherKey(decode("5AvVhmFLUs0KTA3Kprsdag=="));
+        return rememberMeManager;
+    }
 
-//    @Bean
-//    public SimpleCookie rememberMeCookie() {
-//        SimpleCookie cookie = new SimpleCookie("rememberMe");
-//        cookie.setHttpOnly(true);
-//        cookie.setMaxAge(2592000);
-//        return cookie;
-//    }
+    @Bean
+    public SimpleCookie rememberMeCookie() {
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(2592000);
+        return cookie;
+    }
 
     @Bean
     public SessionManager sessionManager() {
@@ -127,6 +129,7 @@ public class ShiroConfig {
         map.put("/404", "anon");
         map.put("/403", "anon");
         map.put("/500", "anon");
+        map.put("/errors", "anon");
 
         //需要登陆
         map.put("/**", "authc");
