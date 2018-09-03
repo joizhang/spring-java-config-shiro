@@ -55,7 +55,6 @@ public class JettyServer {
     private ResourceHandler resourceHandler() {
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setDirectoriesListed(true);
-        // resourceHandler.setWelcomeFiles(new String[]{ "index.html" });
         resourceHandler.setResourceBase(".");
         return resourceHandler;
     }
