@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jetty-version>9.4.9.v20180320</jetty-version>
+        <jetty-version>9.4.34.v20201102</jetty-version>
         <spring-version>4.3.14.RELEASE</spring-version>
         <hibernate-version>5.2.14.Final</hibernate-version>
         <hibernate-validator-version>5.4.1.Final</hibernate-validator-version>
