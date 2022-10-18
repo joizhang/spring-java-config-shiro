@@ -21,7 +21,7 @@
         <shiro-version>1.7.1</shiro-version>
         <slf4j-log4j-version>1.7.12</slf4j-log4j-version>
         <spring-data-redis.version>1.8.10.RELEASE</spring-data-redis.version>
-        <jackson-version>2.12.1</jackson-version>
+        <jackson-version>2.13.4.1</jackson-version>
         <thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
         <commons-lang3-version>3.7</commons-lang3-version>
         <jaxb.version>2.2.11</jaxb.version>
